@@ -305,52 +305,6 @@ const Orders = () => {
                               )}
 
                               {/* Price breakdown */}
-                              <div className="mt-4 pt-2 border-t">
-                                {/* Original Price */}
-                                <div className="flex justify-between text-sm text-gray-600 mb-1">
-                                  <span>Original Price</span>
-                                  <span className="line-through">
-                                    {formatCurrency(priceInfo.originalPrice)}
-                                  </span>
-                                </div>
-
-                                {/* Discount */}
-                                <div className="flex justify-between text-sm text-green-600 mb-1">
-                                  <span>
-                                    Discount
-                                    <span className="text-xs ml-1">
-                                      ({priceInfo.discountPercentage}%)
-                                    </span>
-                                  </span>
-                                  <span>
-                                    -{formatCurrency(priceInfo.discount)}
-                                  </span>
-                                </div>
-
-                                {/* Subtotal */}
-                                <div className="flex justify-between text-sm text-gray-600 mb-1">
-                                  <span>Subtotal</span>
-                                  <span>
-                                    {formatCurrency(priceInfo.subtotal)}
-                                  </span>
-                                </div>
-
-                                {/* Shipping Charges */}
-                                <div className="flex justify-between text-sm text-gray-600 mb-1">
-                                  <span>Shipping</span>
-                                  <span>
-                                    {formatCurrency(priceInfo.shipping)}
-                                  </span>
-                                </div>
-
-                                {/* Total Amount */}
-                                <div className="flex justify-between font-medium text-gray-900 pt-2 border-t">
-                                  <span>Total Amount</span>
-                                  <span>
-                                    {formatCurrency(order.totalAmount)}
-                                  </span>
-                                </div>
-                              </div>
                             </div>
                           </div>
                         </div>

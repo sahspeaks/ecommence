@@ -369,3 +369,58 @@ For support and inquiries:
 ---
 
 **Built with ❤️ for streetwear lovers**
+
+Issue: Access and refresh tokens stored in localStorage
+
+- File/Path: src/context/AuthContext.jsx , src/context/NewAuthContext.jsx , src/pages/PlaceOrder.jsx , src/context/WhislistContext.jsx
+- Severity: Critical
+- Recommendation: Store refresh tokens in secure, httpOnly, sameSite cookies on the backend. Keep access tokens in memory (or sessionStorage with strict CSP/XSS protections). Refactor SecureStorage to avoid localStorage for sensitive tokens.
+
+Issue: Lack of global XSS/Content Security Policy (CSP)
+
+- File/Path: App-level configuration (host-level)
+- Severity: Medium
+- Recommendation: Add CSP headers via hosting/CDN (restrict script-src to trusted domains like checkout.razorpay.com ), set X-Content-Type-Options: nosniff , Referrer-Policy: no-referrer , and Strict-Transport-Security for production.
+  Performance
+
+- Issue: No route-based code splitting
+
+  - File/Path: src/App.jsx
+  - Severity: Medium
+  - Recommendation: Use React.lazy and Suspense for pages ( Home , Product , Cart , Login , etc.) to reduce initial bundle size.
+  - Issue: Redundant data fetching and lack of caching layer
+
+- File/Path: src/context/CollectionsContext.jsx , src/context/sliderService.jsx
+- Severity: Low
+- Recommendation: Adopt React Query (or SWR) for caching, retries, deduping, stale-while-revalidate. Leverage queryClient and standardized API clients.
+
+- E-Commerce Best Practices
+
+- Issue: Payment integration not fully isolated from UI logic
+
+  - File/Path: src/pages/PlaceOrder.jsx
+  - Severity: Medium
+  - Recommendation: Abstract payment flow into a dedicated service, standardize error handling and retries. Validate order payload locally before sending.
+
+- Issue: Razorpay script addition without SRI/CSP
+
+  - File/Path: src/pages/PlaceOrder.jsx
+  - Severity: Medium
+  - Recommendation: Enforce CSP in hosting and load script only from Razorpay; consider deferring load and remove scripts on unmount (already attempted). Ensure secure return flow and signature verification exclusively on backend.
+
+    -Issue: Network error handling inconsistent across modules
+
+    - File/Path: src/context/CollectionsContext.jsx , src/context/WhislistContext.jsx , src/context/sliderService.jsx
+    - Severity: Medium
+    - Recommendation: Use the apiCall wrapper (with token refresh) consistently or migrate to Axios with interceptors for auth/refresh/error handling. Standardize response parsing and retries.
+
+- Issue: Environment separation incomplete
+
+- File/Path: .env , README.md
+- Severity: Medium
+- Recommendation: Add .env.development , .env.staging , .env.production with VITE_API_BASE_URL , VITE_OAUTH_CLIENT_ID , VITE_RAZORPAY_KEY_ID . Include .env.example for onboarding.
+- Issue: No CI/CD configuration and build checks
+
+- File/Path: Project root
+- Severity: Low
+- Recommendation: Add CI (GitHub Actions) for lint/build/test on every push. Enforce environment variables presence and generate production build artifacts.

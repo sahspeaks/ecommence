@@ -34,7 +34,7 @@ function Contact() {
           <div className="text-gray-500">
             <p>WhatsApp: 7569795229</p>
             <p className="text-sm italic">
-              (WhatsApp messages only, no calls please)
+              (Contact us via WhatsApp for the fastest response)
             </p>
             <p className="mt-2">Email: store.moonsflare@gmail.com</p>
           </div>
